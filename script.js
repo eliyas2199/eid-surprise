@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Display romantic sub-text
         textStage3.classList.add("visible");
-        typeWriterEffect(textStage3, "I Love You Liza 😊🌙", 80);
+        typeWriterEffect(textStage3, "I Love You Liza 😊😘🌙", 80);
 
         // Enhance the Moon Glow
         moon.classList.add("enhanced-glow");
