@@ -1,0 +1,385 @@
+/* Base Resets & Variables */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg-color: #050816;
+    --moon-glow: rgba(255, 215, 0, 0.4);
+    --moon-glow-enhanced: rgba(255, 215, 0, 0.85);
+    --gold: #FFD700;
+    --warm-orange: #ff7700;
+    --soft-pink: #ff69b4;
+    --font-serif: "Georgia", serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: var(--font-serif);
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Starry Sky Animation */
+#stars-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    background-color: #ffffff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.8; transform: scale(1.2); }
+}
+
+/* Fireflies Container */
+#fireflies-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffeb3b;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ffeb3b, 0 0 20px #ffeb3b;
+    animation: float-firefly 12s infinite linear;
+}
+
+@keyframes float-firefly {
+    0% {
+        transform: translateY(110vh) translateX(0) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(50px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Hanging Lanterns */
+.lantern {
+    position: absolute;
+    top: 0;
+    width: 60px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+.lantern-left {
+    left: 5%;
+}
+
+.lantern-right {
+    right: 5%;
+}
+
+.thread {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(to bottom, #111, var(--gold));
+}
+
+.lantern-cap {
+    width: 40px;
+    height: 10px;
+    background: #2a1a08;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid var(--gold);
+}
+
+.lantern-body {
+    width: 34px;
+    height: 45px;
+    background: radial-gradient(circle, #ff9800 20%, #e65100 80%);
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+    position: relative;
+    box-shadow: 0 0 15px rgba(255, 120, 0, 0.4);
+    animation: sway 6s infinite ease-in-out alternate;
+    transform-origin: top center;
+}
+
+.lantern-light {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, #fff 10%, rgba(255, 235, 59, 0.8) 50%, transparent 100%);
+    border-radius: 50%;
+    animation: flicker 2s infinite alternate;
+}
+
+.lantern-tassel {
+    width: 4px;
+    height: 25px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-top: -2px;
+}
+
+@keyframes sway {
+    0% { transform: rotate(-3deg); }
+    100% { transform: rotate(3deg); }
+}
+
+@keyframes flicker {
+    0%, 100% { transform: scale(0.9); opacity: 0.8; box-shadow: 0 0 10px var(--warm-orange); }
+    50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 25px var(--warm-orange); }
+}
+
+/* Moon Elements */
+#moon-container {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    cursor: pointer;
+    animation: moonRise 2.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.moon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffffff 0%, #fffde0 40%, #f7ea9b 80%, #d4af37 100%);
+    box-shadow: 0 0 35px var(--moon-glow), inset -10px -10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: box-shadow 1s ease, transform 0.3s ease;
+    animation: moonPulse 4s infinite ease-in-out;
+}
+
+.moon-texture {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image: 
+        radial-gradient(circle at 60% 70%, rgba(0, 0, 0, 0.04) 8%, transparent 8%),
+        radial-gradient(circle at 40% 50%, rgba(0, 0, 0, 0.05) 12%, transparent 12%),
+        radial-gradient(circle at 75% 30%, rgba(0, 0, 0, 0.03) 6%, transparent 6%);
+    opacity: 0.85;
+}
+
+.moon:active {
+    transform: scale(0.95);
+}
+
+.moon.enhanced-glow {
+    box-shadow: 0 0 60px var(--moon-glow-enhanced), 0 0 100px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes moonRise {
+    0% { transform: translate(-50%, 120vh); }
+    100% { transform: translate(-50%, 0); }
+}
+
+@keyframes moonPulse {
+    0%, 100% { box-shadow: 0 0 35px var(--moon-glow); }
+    50% { box-shadow: 0 0 50px rgba(255, 215, 0, 0.6); }
+}
+
+/* Display Container */
+.display-container {
+    position: absolute;
+    top: 32%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 8;
+    pointer-events: none;
+}
+
+/* Images & Reveal Effects */
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.surprise-img {
+    position: absolute;
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 16px;
+    border: 3px solid rgba(255, 215, 0, 0.4);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(0.8);
+    transition: opacity 2s cubic-bezier(0.25, 1, 0.5, 1),
+                filter 2s cubic-bezier(0.25, 1, 0.5, 1),
+                transform 2s cubic-bezier(0.25, 1, 0.5, 1),
+                box-shadow 2s ease;
+}
+
+.surprise-img.reveal {
+    opacity: 1;
+    filter: blur(0px) drop-shadow(0 0 20px rgba(255, 215, 0, 0.55));
+    transform: scale(1);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4), 0 15px 35px rgba(0,0,0,0.5);
+}
+
+/* Typography Container */
+.text-wrapper {
+    text-align: center;
+    width: 100%;
+    min-height: 100px;
+}
+
+.eid-text {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    min-height: 2.2rem;
+    opacity: 0;
+    transition: opacity 1s ease;
+    animation: floatingText 4s infinite ease-in-out;
+}
+
+.love-text {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #ffd1dc;
+    letter-spacing: 0.5px;
+    min-height: 1.8rem;
+    opacity: 0;
+    transition: opacity 1s ease;
+    animation: floatingText 4s infinite ease-in-out alternate;
+}
+
+.eid-text.visible, .love-text.visible {
+    opacity: 1;
+}
+
+/* Glowing text effects */
+.gold-glow {
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.8), 0 0 20px rgba(255, 215, 0, 0.5);
+    color: #ffea70;
+}
+
+.romantic-glow {
+    text-shadow: 0 0 10px rgba(255, 105, 180, 0.8), 0 0 20px rgba(255, 105, 180, 0.4);
+    color: #fff0f5;
+}
+
+@keyframes floatingText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Floating Hearts Container & Animation */
+#hearts-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    color: var(--soft-pink);
+    font-size: 1.5rem;
+    pointer-events: none;
+    animation: float-heart 5s infinite linear;
+}
+
+@keyframes float-heart {
+    0% {
+        transform: translateY(110vh) translateX(0) scale(0.6) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.9;
+    }
+    85% {
+        opacity: 0.9;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(100px) scale(1.3) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Mobile-First Adaptations */
+@media (max-width: 480px) {
+    #moon-container {
+        top: 6%;
+    }
+    .moon {
+        width: 85px;
+        height: 85px;
+    }
+    .display-container {
+        top: 26%;
+        max-width: 92%;
+    }
+    .surprise-img {
+        max-width: 95%;
+        max-height: 95%;
+    }
+    .eid-text {
+        font-size: 1.5rem;
+    }
+    .love-text {
+        font-size: 1.2rem;
+    }
+    .lantern {
+        width: 45px;
+    }
+    .lantern-body {
+        width: 28px;
+        height: 38px;
+    }
+    .thread {
+        height: 45px;
+    }
+}
